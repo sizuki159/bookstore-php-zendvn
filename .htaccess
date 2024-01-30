@@ -1,0 +1,29 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+RewriteRule		home.html 			    index.php?module=frontend&controller=index&action=home
+RewriteRule		categorys.html 		    index.php?module=frontend&controller=category&action=index
+RewriteRule		books.html 		        index.php?module=frontend&controller=book&action=index
+RewriteRule		register.html 		    index.php?module=frontend&controller=index&action=register
+RewriteRule		login.html 			    index.php?module=frontend&controller=index&action=login
+RewriteRule		logout.html 			index.php?module=frontend&controller=index&action=logout
+RewriteRule		cart.html 			    index.php?module=frontend&controller=user&action=cart
+RewriteRule		my-account.html 	    index.php?module=frontend&controller=user&action=profile
+RewriteRule		order-history.html 		index.php?module=frontend&controller=user&action=orderHistory
+RewriteRule		change-password.html 	index.php?module=frontend&controller=user&action=changePass
+
+
+#Category => string-(categoryID)
+#bookDetail => string1/string2-(categoryID)-(bookID)
+#noticeType => notice-(TYPENOTICE)
+
+RewriteRule		([A-Za-z0-9_-]+)-([0-9]+)\.html 		                        index.php?module=frontend&controller=book&action=index&category_id=$2
+RewriteRule		([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)-([0-9]+)-([0-9]+)\.html 		index.php?module=frontend&controller=book&action=item&category_id=$3&id=$4
+RewriteRule		notice-([A-Za-z0-9_-]+).html		                            index.php?module=frontend&controller=index&action=notice&type=$1
+
+
+RewriteCond %{REQUEST_URI} ^/404/$
+RewriteRule ^(.*)$ /notice-not-url.html [L]
